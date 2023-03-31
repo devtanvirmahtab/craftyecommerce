@@ -1,3 +1,7 @@
+#E-Commerce Website
+## using RestApi , Getx statement, MVC 
+![all(1)(1)](https://user-images.githubusercontent.com/118268749/229082308-79cb11da-5f15-426a-861c-ed5d0d861b94.jpg)
+
 # craftyecommerce
 
 A new Flutter project.
