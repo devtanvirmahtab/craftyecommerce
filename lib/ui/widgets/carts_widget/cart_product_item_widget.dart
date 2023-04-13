@@ -65,7 +65,9 @@ class CartProductItemWidget extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 14
                         ),),
-                        IncrementDecrementWidget(),
+                        IncrementDecrementWidget(onChange: (valueInt ) {
+
+                        },),
                       ],)
                   ],
                 ),

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../../utiles/app_colors.dart';
 
 class ProductImageSlider extends StatelessWidget {
-  ProductImageSlider({Key? key}) : super(key: key);
+  final List<String> imageSlider;
+  ProductImageSlider({Key? key, required this.imageSlider}) : super(key: key);
 
   final CarouselController _carouselController = CarouselController();
   final ValueNotifier<int> _currentSelectedIndex = ValueNotifier(0);
@@ -23,20 +24,19 @@ class ProductImageSlider extends StatelessWidget {
               _currentSelectedIndex.value = index;
             },
           ),
-          items: [1,2,3,4,5].map((i) {
+          items: imageSlider.map((slider) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/shoes.png',),
-                        fit: BoxFit.contain
+                      image:  DecorationImage(
+                        image: NetworkImage(slider),
+                        fit: BoxFit.scaleDown
                       )
                     ),
                     alignment: Alignment.center,
-                    child: Text('text $i', style: TextStyle(fontSize: 16.0),)
                 );
               },
             );
@@ -51,7 +51,7 @@ class ProductImageSlider extends StatelessWidget {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  for(int i = 0;i<5;i++)
+                  for(int i = 0;i<imageSlider.length;i++)
                     AnimatedContainer(
                       duration: Duration(milliseconds: 500),
                       margin: const EdgeInsets.all(3),

@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/category_model.dart';
 import '../../getx/bottom_navigation_controller.dart';
 import '../../getx/category_controller.dart';
 import '../../getx/home_controller.dart';
-import '../../utiles/app_colors.dart';
 import '../../widgets/category_item_widget.dart';
 import '../../widgets/home_widget/home_banner_slider.dart';
 import '../../widgets/home_widget/section_header.dart';
 import '../../widgets/product_item_preview_card.dart';
 import '../product_screen/product_list.dart';
+import '../product_screen/product_list_by_remarks.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   BottomNavigationController controller = Get.put(BottomNavigationController());
+  ProductController pcontroller = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) =>
                               ProductListScreen(
-                                categoryId: '${category.categoryModel.data?[index].id??1}')
+                                categoryId: '${category.categoryModel.data?[index].id??1}',
+                                categoryName: category.categoryModel.data?[index].categoryName?? '',
+                              )
                           ));
                           print('category id from home screen is here ${category.categoryModel.data![index].id }');
                         },
@@ -121,7 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
               /**** Category end*****/
 
               const SizedBox(height: 10),
-              SectionHeader(headerName: "Popular", seeOnTap: (){}),
+              SectionHeader(
+                  headerName: "Popular",
+                  seeOnTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        ProductListByRemarksScreen(remarksName: 'popular',remarksModel: pcontroller.popularProductModel)));
+                  }),
               const SizedBox(height: 10),
               /**** Popular Product *****/
               GetBuilder<ProductController>(
@@ -145,7 +152,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               ),
               const SizedBox(height: 10),
-              SectionHeader(headerName: "Special", seeOnTap: (){}),
+              SectionHeader(
+                  headerName: "Special",
+                  seeOnTap: (){
+                    print("special model");
+                    print(pcontroller.newProductModel);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        ProductListByRemarksScreen(remarksName: 'special',remarksModel: pcontroller.specialProductModel,)));
+                  }
+              ),
               const SizedBox(height: 10),
               /**** Special Product *****/
               GetBuilder<ProductController>(
@@ -169,7 +184,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
               ),
               const SizedBox(height: 10),
-              SectionHeader(headerName: "New", seeOnTap: (){}),
+              SectionHeader(
+                  headerName: "New",
+                  seeOnTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        ProductListByRemarksScreen(remarksName: 'new',remarksModel: pcontroller.newProductModel)));
+                  }),
               const SizedBox(height: 10),
               /**** New Product *****/
               GetBuilder<ProductController>(

@@ -55,8 +55,8 @@ class HomeBannerSlider extends StatelessWidget {
                 AnimatedContainer(
                   duration: Duration(milliseconds: 500),
                   margin: const EdgeInsets.all(3),
-                  height: 12,
-                  width: 12,
+                  height: 10,
+                  width: i == _currentSelectedIndex.value ? 18 : 10,
                   decoration: BoxDecoration(
                     color: i == _currentSelectedIndex.value ? AppColors.primaryColor : null,
                     borderRadius: BorderRadius.circular(10),

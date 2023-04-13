@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import '../../utiles/app_colors.dart';
 
 class IncrementDecrementWidget extends StatefulWidget {
-
-
-
   const IncrementDecrementWidget({
-    Key? key,
+    Key? key, required this.onChange,
   }) : super(key: key);
+
+  final Function(int) onChange;
 
   @override
   State<IncrementDecrementWidget> createState() => _IncrementDecrementWidgetState();
@@ -18,6 +17,10 @@ class IncrementDecrementWidget extends StatefulWidget {
 class _IncrementDecrementWidgetState extends State<IncrementDecrementWidget> {
 
   int currentValue = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,8 @@ class _IncrementDecrementWidgetState extends State<IncrementDecrementWidget> {
                 null;
               }else{
                 currentValue--;
+                widget.onChange(currentValue);
+
               }
               setState(() {
 
@@ -52,6 +57,7 @@ class _IncrementDecrementWidgetState extends State<IncrementDecrementWidget> {
         GestureDetector(
             onTap: (){
               currentValue++;
+              widget.onChange(currentValue);
               setState(() {
 
               });

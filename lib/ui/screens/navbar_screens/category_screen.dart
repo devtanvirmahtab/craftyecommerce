@@ -50,7 +50,10 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
             categoryImage: category.categoryModel.data![index].categoryImg ?? "",
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  ProductListScreen(categoryId: '${category.categoryModel.data![index].id ?? 1}',) ));
+                  ProductListScreen(
+                    categoryId: '${category.categoryModel.data![index].id ?? 1}',
+                    categoryName: category.categoryModel.data?[index].categoryName?? '',
+                  ) ));
                 });
               },
             )

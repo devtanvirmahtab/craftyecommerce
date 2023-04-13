@@ -15,7 +15,7 @@ class ProductItemPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(productId: productData.id ?? 0,)));
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

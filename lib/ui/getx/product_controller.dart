@@ -86,4 +86,5 @@ class ProductController extends GetxController{
        return false;
      }
    }
+
 }

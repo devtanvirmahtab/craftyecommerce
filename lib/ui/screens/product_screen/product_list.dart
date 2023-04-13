@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({Key? key, required this.categoryId}) : super(key: key);
-  final String categoryId;
+  const ProductListScreen({Key? key, required this.categoryId, required this.categoryName}) : super(key: key);
+  final String categoryId,categoryName;
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -22,7 +22,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getProductByCategory(widget.categoryId);
-      print('product id is here ${widget.categoryId}');
     });
   }
 
@@ -32,7 +31,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       appBar: AppBar(
         elevation: 1,
         backgroundColor: Colors.white,
-        title: Text("Categories",style: TextStyle(color: Colors.black87),),
+        title: Text(widget.categoryName,style: TextStyle(color: Colors.black87),),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -45,14 +44,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else if(productController.productByCategoryModel.data?.length == 0){
+          }else if((productController.productByCategoryModel.data?.length ?? 0) == 0){
             return const Center(child: Text('No Products Found'));
           }
           else{
             return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 7/8
+                  childAspectRatio: 6/8
                 ),
                 itemCount:productController.productByCategoryModel.data?.length ?? 0,
                 itemBuilder: (context,index){
