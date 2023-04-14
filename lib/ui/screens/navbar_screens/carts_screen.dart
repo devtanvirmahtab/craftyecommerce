@@ -1,7 +1,9 @@
+import 'package:craftyecommerce/ui/screens/auth_screens/email_auth_screen.dart';
 import 'package:craftyecommerce/ui/widgets/appp_eleveted_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../getx/auth_controller.dart';
 import '../../getx/bottom_navigation_controller.dart';
 import '../../utiles/app_colors.dart';
 import '../../widgets/carts_widget/cart_product_item_widget.dart';
@@ -15,6 +17,23 @@ class ProductCartScreen extends StatefulWidget {
 
 class _ProductCartScreenState extends State<ProductCartScreen> {
   BottomNavigationController controller = Get.put(BottomNavigationController());
+  AuthController authController = Get.put(AuthController());
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    /*****
+      //check login or not
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        if(!authController.authState){
+          controller.changeIndex(0);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmailAuthScreen()));
+        }
+      });
+     *******/
+  }
 
   @override
   Widget build(BuildContext context) {

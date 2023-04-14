@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/product_details_model.dart';
+import '../../getx/auth_controller.dart';
 import '../../getx/prodcut_details_controller.dart';
 import '../../widgets/appp_eleveted_button.dart';
 import '../../widgets/product_widgets/product_image_slider.dart';
@@ -19,6 +20,8 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   ProductDetailsController  controller = Get.put(ProductDetailsController());
+  final AuthController _authController = Get.put(AuthController());
+
   Color? selectedColor ;
   String? selectedSize ;
   double totalAmount = 0.0;
@@ -221,7 +224,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         )),
                       ],
                     ),
-                      SizedBox(width:120,child: AppElevatedButton(text: "Add to Cart", onTap: (){}))
+                      SizedBox(width:120,child: AppElevatedButton(text: "Add to Cart", onTap: (){
+                        final _authState = _authController.checkAuthState();
+                        if(_authState){
+                          //add to cart
+                        }
+                      }))
                     ],
                   ),
                 )
