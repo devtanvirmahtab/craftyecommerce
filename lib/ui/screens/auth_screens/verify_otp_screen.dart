@@ -1,19 +1,26 @@
 import 'package:craftyecommerce/ui/utiles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../getx/auth_controller.dart';
 import '../../widgets/appp_eleveted_button.dart';
 import 'complete_profile_screen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
-  const VerifyOtpScreen({Key? key}) : super(key: key);
+  final String? email;
+  const VerifyOtpScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
 
 class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
+
+  final TextEditingController _otpTEController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +50,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 PinCodeTextField(
                   length: 4,
                   obscureText: false,
+                  controller: _otpTEController,
                   animationType: AnimationType.fade,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   pinTheme: PinTheme(
@@ -68,11 +76,31 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   }, appContext: context,
                 ),
                 const SizedBox(height: 16),
-                AppElevatedButton(
-                  text: "Next",
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> CompleteProfileScreen()));
-                  },
+                GetBuilder<AuthController>(
+                  builder: (authController){
+                    if(authController.verifyOTPInProgress){
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }else {
+                      return AppElevatedButton(
+                        text: "Next",
+                        onTap: () {
+
+                          authController.verifyOTP(widget.email!, _otpTEController.text).then((value) {
+                            if(value){
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => CompleteProfileScreen()));
+                            }else{
+
+                            }
+                          });
+
+
+                        },
+                      );
+                    }
+                  }
                 ),
                 const SizedBox(height: 20),
                 RichText(text: TextSpan(
